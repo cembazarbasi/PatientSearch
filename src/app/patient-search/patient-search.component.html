@@ -1,0 +1,236 @@
+
+<body>
+
+    <h3 class="text-center mt-5 pt-5">Hello, Dr. Noori!</h3>
+    <div>
+    <div class="w-75 mx-auto pt-5">
+       <p  style="font-size: 18px;"> <img class="" src="https://www.iconpacks.net/icons/2/free-search-icon-2903-thumb.png" alt="" style="width: 25px; ">Search your patients</p>
+    </div>
+
+  <div class="card text-center w-75 mt-1  mx-auto" style="border: none; border-radius: 10px; background-color: white;">     
+    <div class="card-header" class="d-md-flex flex-sm-row pb-2 " style="background-color: #f5f1ec; opacity: 1; padding-left: 0 !important; padding-top: 0 !important; padding-right: 0 !important; border-bottom: none; " >      
+
+      <ul class="nav nav-tabs card-header-tabs d-flex mx-0" style="max-width: fit-content !important;"  >
+        <li class="nav-item "  >
+          <a class="nav-link active " style="border: none;" aria-current="true" href="#" >Basic</a>
+        </li>
+        <li class="nav-item disabled" style="background-color: #ebeaea;">
+          <a class="nav-link disabled" href="#">Advanced</a>
+        </li>        
+      </ul>
+        
+    </div>
+
+    <div class="card-body " style="box-shadow: 5px 5px 10px rgb(201, 200, 200); border-radius: 10px; ">
+      <p class="d-flex px-2" style="color: rgb(143, 143, 143);">Patient Info</p>
+      <div class="d-md-flex flex-sm-row mb-3">
+
+        <div class=" d-flex flex-column px-2">
+            <label for="searchFirstName" class="d-flex ">First Name</label>
+            <input class="form-control" type="text" id="searchFirstName" [(ngModel)]="searchFirstName">
+        </div>
+        <div class="d-flex flex-column px-2">
+            <label for="searchLastName" class="d-flex"> Last Name</label>
+            <input class="form-control" type="text" id="searchLastName" [(ngModel)]="searchLastName">
+        </div>
+        <div class="d-flex flex-column px-2">
+            <label for="Name" class="d-flex"> Date of Birth</label>
+            <input class="form-control" type="date" id="searchDob" [(ngModel)]="searchDob">
+        </div>
+      </div>
+
+      <p class="d-flex mt-4 pt-3 px-2" style="border-top: 1px solid rgb(187, 187, 187); color: rgb(143, 143, 143);">Appoinment Range</p>
+      <div class="d-md-flex flex-sm-row mb-3">
+
+        <div class=" d-flex flex-column px-2">
+            <label for="startDate" class="d-flex ">Start Date</label>
+            <input class="form-control" type="date" id="startDate" [(ngModel)]="startDate">
+        </div>
+        <div class="d-flex flex-column px-2">
+            <label for="endDate" class="d-flex"> End Date</label>
+            <input class="form-control" type="date" id="endDate" [(ngModel)]="endDate">
+        </div>        
+        </div>
+        <div class="d-md-flex flex-sm-row-reverse mb-3" style="border-top: 1px solid rgb(187, 187, 187);">
+            <button class="d-flex align-items-end mt-3 btn btn-success" (click)="searchPatients()"> Search</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+    <div class="">
+
+        <div class="w-75 mx-auto pt-5">
+        
+            <ul class="nav nav-tabs card-header-tabs d-flex mx-0" style="max-width: fit-content !important;"  >
+                <li class="nav-item " (click)="switchTab('tab1')"  >
+                    <a [class.active]="activeTab === 'tab1'"  style="font-size: 25px; color: black; text-decoration: none;"><img class="pb-1 pe-1" src="https://cdn-icons-png.flaticon.com/512/2370/2370264.png" alt="" style="width: 25px; ">Today's patients</a>
+                </li>
+                <li class="nav-item " (click)="switchTab('tab2')">
+                    <a [class.active]="activeTab === 'tab2'" class="ps-5"  style="font-size: 25px; color: black; text-decoration: none;"><img class="pb-1 pe-1" src="https://cdn-icons-png.flaticon.com/512/54/54206.png" alt="" style="width: 25px; ">Search results</a>
+                </li>        
+              </ul>
+        
+       
+            </div>
+    <div *ngFor="let patient of patients"  class="patients-container mt-3 w-75 mx-auto " style="border-radius: 10px;  border: 1px solid white; box-shadow: 5px 5px 10px rgb(201, 200, 200);">
+   
+    <div *ngIf="activeTab === 'tab1' && patient.appointments" class="patients-card" style="background-color: white;" >
+        <div  class="card-header d-md-flex flex-sm-row mb-3" style="border-bottom: 1px solid rgb(187, 187, 187) ">
+            <img src="https://img.freepik.com/premium-vector/medical-sign-star-life-icon-hospital-ambulance-star-glyph-style-pictogram_599062-3818.jpg" alt="avatar" style="width: 50px; height: 50px;">
+            <h5 class="p-3  flex-grow-1">{{ patient.firstName }} {{ patient.lastName }}</h5>
+            <h5 class="p-3 me-3  pe-5">Next Appointment</h5>
+            <p class="p-3 pe-4 me-5 pe-5">{{patient.nextApp}}</p>
+            <a class="p-2 pe-5" style="font-size: 25px; text-decoration: none;" href="#"> &gt;</a>
+
+        </div>
+
+        <div class="patients-details d-md-flex justify-content-between "  style="background-color: white; font-size: 13px;">
+
+            <div class="cont1 d-flex flex-column col-12 col-md-3 " >
+                <div class="row d-flex mb-3 ms-1 justify-content-md-start">
+                    <div class="col-4 " style="width: auto; font-weight: bold; ">
+                        <p>DOB</p>
+                        <p>Sex</p>
+                        <p>Residence</p>
+                        <p>MRN</p>
+                    </div>
+                    <div class="col-4 px-0" style="width: max-content;">
+                        <p>{{patient.dob}}</p>
+                        <p>{{patient.sex}}</p>
+                        <p>{{patient.residence}}</p>
+                        <p>{{patient.mrn}}</p>
+                    </div>
+                </div>
+             </div>
+            
+         <div class=" cont1 d-flex flex-column col-12 col-md" style="min-width: 100px;" >
+            <div class="row d-flex mb-3 ms-1 justify-content-md-start">
+                <div class="col-4" style="width: max-content; font-weight: bold;">
+                    <p>ID Number</p>
+                    <p>Last 4 Digits of SSN</p>
+                    <p>Phone Number</p>
+                    <p>Email Address</p>
+                </div>
+                <div class="col-2 px-0" style="width: max-content;">
+                    <p>{{patient.id}}</p>
+                    <p>{{patient.ssn}}</p>
+                    <p>{{patient.phone}}</p>
+                    <p>{{patient.email}}</p>
+                </div>
+            </div>
+         </div>
+
+
+         <div class="cont1 d-flex flex-column col-12 col-md">
+            <div class="row d-flex mb-3 ms-1 justify-content-md-start">
+                <div class="col-4" style="width: auto; font-weight: bold; ">
+                    <p>Hospital</p>
+                    <p>Dept.</p>
+                    <p>Physician</p>
+                    <p>Conditions</p>
+                </div>
+                <div class="col-4" style="width: max-content;">
+                    <p>{{patient.hospital}}</p>
+                    <p>{{patient.dept}}</p>
+                    <p>{{patient.physician}}</p>
+                    <p>{{patient.conditions}}</p>
+                </div>
+            </div>
+         </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div *ngFor="let patient of selectedPatients">
+<div *ngIf="selectedPatients.length > 0"  class="patients-container mt-3 w-75 mx-auto " style="border-radius: 10px;  border: 1px solid white; box-shadow: 5px 5px 10px rgb(201, 200, 200);">
+   
+    <div *ngIf="activeTab === 'tab2' && patient.appointments" class="patients-card" style="background-color: white;" >
+        <div   class="card-header d-md-flex flex-sm-row mb-3" style="border-bottom: 1px solid rgb(187, 187, 187); ">
+            <img src="https://img.freepik.com/premium-vector/medical-sign-star-life-icon-hospital-ambulance-star-glyph-style-pictogram_599062-3818.jpg" alt="avatar" style="width: 50px; height: 50px;">
+            <h5 class="p-3  flex-grow-1">{{ patient.firstName }} {{ patient.lastName }}</h5>
+            
+
+        </div>
+
+        <div  class="patients-details d-md-flex justify-content-between "  style="background-color: white; font-size: 13px;">
+
+            <div class="cont1 d-flex flex-column col-12 col-md-3 " >
+                <div class="row d-flex mb-3 ms-1 justify-content-md-start">
+                    <div class="col-4 " style="width: auto; font-weight: bold; ">
+                        <p>DOB</p>
+                        <p>Sex</p>
+                        <p>Residence</p>
+                        <p>MRN</p>
+                    </div>
+                    <div class="col-4 px-0" style="width: max-content;">
+                        <p>{{patient.dob}}</p>
+                        <p>{{patient.sex}}</p>
+                        <p>{{patient.residence}}</p>
+                        <p>{{patient.mrn}}</p>
+                    </div>
+                </div>
+             </div>
+    
+
+            
+         <div class=" cont1 d-flex flex-column col-12 col-md" style="min-width: 100px;" >
+            <div class="row d-flex mb-3 ms-1 justify-content-md-start">
+                <div class="col-4" style="width: max-content; font-weight: bold;">
+                    <p>ID Number</p>
+                    <p>Last 4 Digits of SSN</p>
+                    <p>Phone Number</p>
+                    <p>Email Address</p>
+                </div>
+                <div class="col-2 px-0" style="width: max-content;">
+                    <p>{{patient.id}}</p>
+                    <p>{{patient.ssn}}</p>
+                    <p>{{patient.phone}}</p>
+                    <p>{{patient.email}}</p>
+                </div>
+            </div>
+         </div>
+
+
+
+
+        <div class="cont1 d-flex flex-column col-12 col-md">
+            <div class="row d-flex mb-3 ms-1 justify-content-md-start">
+                <div class="col-4" style="width: auto; font-weight: bold; ">
+                    <p>Hospital</p>
+                    <p>Dept.</p>
+                    <p>Physician</p>
+                    <p>Conditions</p>
+                </div>
+                <div class="col-4" style="width: max-content;">
+                    <p>{{patient.hospital}}</p>
+                    <p>{{patient.dept}}</p>
+                    <p>{{patient.physician}}</p>
+                    <p>{{patient.conditions}}</p>
+                </div>
+            </div>
+        </div>
+        </div>
+
+            <div class="ms-3 mb-0">
+                <h6>Appointments:</h6>            
+                <div *ngFor="let appointment of patient.appointments" class="mb-0">
+                    <p class="mb-0">{{appointment.date | date:'short'}}</p>
+                </div>
+            </div>
+
+    </div>
+</div>
+</div>
+
+
+
+
+
+  
+</body>
